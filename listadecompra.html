@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="shoppingListApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Compras</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-controller="ShoppingListController">
+    <div class="container">
+        <h1>Lista de Compras</h1>
+        <input type="text" ng-model="item" placeholder="Agregar un artículo">
+        <button ng-click="addItem()">Agregar</button>
+        <ul>
+            <li ng-repeat="item in items">
+                {{ item }} <button ng-click="removeItem($index)">Eliminar</button>
+            </li>
+        </ul>
+    </div>
+    <script>
+        angular.module('shoppingListApp', [])
+            .controller('ShoppingListController', function($scope) {
+                $scope.items = [];
+                $scope.addItem = function() {
+                    if ($scope.item) {
+                        $scope.items.push($scope.item);
+                        $scope.item = '';
+                    }
+                };
+                $scope.removeItem = function(index) {
+                    $scope.items.splice(index, 1);
+                };
+            });
+    </script>
+</body>
+</html>
